@@ -1,0 +1,153 @@
+{
+  "appTitle": "Social Support Assistance Portal",
+  "appDesc": "Apply for financial aid with confidence. Our accessible, step-by-step application helps you describe your situation with optional AI assistance.",
+  "howItWorks": "How It Works",
+  "step1Title": "Personal Information",
+  "step1Desc": "Provide your personal details including ID, contact, and location. All fields are validated.",
+  "step2Title": "Family & Financial Info",
+  "step2Desc": "Tell us about your employment, income, housing, and dependents to assess your eligibility.",
+  "step3Title": "Describe Your Situation",
+  "step3Desc": "Use our AI-powered assistant to help you describe your current challenges in clear language.",
+  "startNow": "Start Application",
+  "heroAltText": "Illustration showing support",
+  "formTitle": "Application Form",
+  "stepProgress": "Step {{current}} of {{total}}",
+
+  "step1": {
+    "name": "Name",
+    "namePlaceholder": "John Doe",
+    "nameRequired": "Name is required",
+    "nationalId": "National ID",
+    "nidRequired": "National ID is required",
+    "nidLength": "Must be 12 digits",
+    "nidDigits": "Only digits allowed",
+    "dob": "Date of Birth",
+    "dobRequired": "Date of birth is required",
+    "gender": "Gender",
+    "genderRequired": "Gender is required",
+    "address": "Address",
+    "addressPlaceholder": "123 Main Street, Apt 4B",
+    "country": "Country",
+    "countryRequired": "Country is required",
+    "state": "State",
+    "stateRequired": "State is required",
+    "city": "City",
+    "cityRequired": "City is required",
+    "phone": "Phone Number",
+    "phoneRequired": "Phone number is required",
+    "phoneLength": "Must be 10 digits",
+    "phoneDigits": "Only numbers allowed",
+    "phonePlaceholder": "Enter 10-digit mobile number",
+    "email": "Email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email",
+    "emailPlaceholder": "you@example.com",
+    "select": "Select",
+    "dobDay": "Day",
+    "dobMonth": "Month",
+    "dobYear": "Year",
+    "otp": {
+      "title": "Enter OTP",
+      "sentTo": "OTP sent to mobile ending in {{masked}}",
+      "sendOtp": "Send OTP",
+      "resendOtpIn": "Resend in {{seconds}}s",
+      "placeholder": "Enter 6-digit OTP",
+      "verify": "Verify",
+      "verifying": "Verifying...",
+      "cancel": "Cancel",
+      "invalid": "Invalid OTP. Try again.",
+      "notVerified": "Please verify your National ID via OTP",
+      "verified": "Verified"
+    },
+    "months": {
+      "01": "January",
+      "02": "February",
+      "03": "March",
+      "04": "April",
+      "05": "May",
+      "06": "June",
+      "07": "July",
+      "08": "August",
+      "09": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+    }
+  },
+
+  "step2": {
+    "maritalStatus": "Marital Status",
+    "dependents": "Number of Dependents",
+    "employment": "Employment Status",
+    "income": "Monthly Income",
+    "housing": "Housing Status",
+
+    "maritalRequired": "Marital status is required",
+    "dependentsRequired": "Number of dependents is required",
+    "employmentRequired": "Employment status is required",
+    "incomeRequired": "Monthly income is required",
+    "housingRequired": "Housing status is required",
+
+    "options": {
+      "single": "Single",
+      "married": "Married",
+      "divorced": "Divorced",
+      "widowed": "Widowed",
+      "employed": "Employed",
+      "unemployed": "Unemployed",
+      "student": "Student",
+      "retired": "Retired",
+      "rented": "Rented",
+      "owned": "Owned",
+      "with_family": "Living with Family",
+      "homeless": "Homeless"
+    }
+  },
+
+  "step3": {
+    "financial": "Current Financial Situation",
+    "employment": "Employment Circumstances",
+    "reason": "Reason for Applying",
+    "helpMeWrite": "Help Me Write",
+    "required": "This field is required",
+    "minLength": "Minimum {{count}} characters required",
+    "financialPlaceholder": "Describe your current financial challenges...",
+    "employmentPlaceholder": "Describe your employment status...",
+    "reasonPlaceholder": "Why are you applying for this support?",
+    "ai": {
+      "generating": "Generating...",
+      "error": "Failed to generate suggestion. Please try again."
+    },
+    "prompts": {
+      "financial": "Write a short paragraph describing someone facing financial hardship due to job loss or low income.",
+      "employment": "Describe a person’s current employment challenges in a professional but empathetic tone.",
+      "reason": "Write a compelling reason why someone would apply for financial support."
+    }
+  },
+
+  "thankYou": {
+    "title": "Thank You!",
+    "subtitle": "Your application has been submitted successfully.",
+    "downloadPdf": "Download as PDF",
+    "pdfTitle": "Social Support Application Summary",
+    "section": {
+      "personal": "Personal Information",
+      "financial": "Financial Information",
+      "situation": "Situation Descriptions"
+    }
+  },
+
+  "gender": {
+    "male": "Male",
+    "female": "Female",
+    "other": "Other"
+  },
+
+  "buttons": {
+    "back": "Back",
+    "backToHome": "Back to Home",
+    "saveAndContinue": "Save and Continue",
+    "saving": "Saving...",
+    "submit": "Submit"
+  }
+}
