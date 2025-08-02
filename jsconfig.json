@@ -6,7 +6,13 @@
       "@components/*": ["components/*"],
       "@features/*": ["features/*"],
       "@utils/*": ["utils/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "@hooks/*": ["hooks/*"],
+      "@common/*": ["components/common/*"],
+      "@form/*": ["components/form/*"],
+      "@constants/*": ["constants/*"],
+      "@layouts/*": ["layouts/*"],
+      "@validations/*": ["validations/*"]
     }
   },
   "include": ["src"]

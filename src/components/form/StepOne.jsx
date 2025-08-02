@@ -8,10 +8,9 @@ import { savePersonal, resetForm } from "@features/form/formSlice";
 import { completeStep } from "@features/formProgress/formProgressSlice";
 
 import useLocationDropdowns from "@hooks/useLocationDropdowns";
-import {
-  parseDobStringToObject,
-  formatDobObjectToString,
-} from "@/utils/dateUtils";
+import useRestoreSavedValues from "@hooks/useRestoreSavedValues";
+
+import { formatDobObjectToString, getInitialDob } from "@/utils/dateUtils";
 import { personalFormSchema } from "@validations/personalFormSchema";
 
 import Button from "@common/Button";
@@ -21,7 +20,7 @@ import NationalIdVerifier from "@form/NationalIdVerifier";
 import PhoneNumber from "@form/PhoneNumber";
 import DateOfBirth from "@form/DateOfBirth";
 
-import { genderOptions, getCountryOptions } from "@constants/dropdownOptions";
+import { genderOptions, getCountryOptions } from "@constants/dropdownoptions";
 
 const StepOne = () => {
   const { t } = useTranslation();
@@ -36,10 +35,7 @@ const StepOne = () => {
   const { control, handleSubmit, watch, setValue, trigger } = useForm({
     defaultValues: {
       ...savedData,
-      dob:
-        typeof savedData?.dob === "string"
-          ? parseDobStringToObject(savedData.dob)
-          : savedData?.dob || { day: "", month: "", year: "" },
+      dob: getInitialDob(savedData?.dob),
     },
   });
 
@@ -49,15 +45,13 @@ const StepOne = () => {
   const { dialCode, states, cities, initializeFromSavedData } =
     useLocationDropdowns(selectedCountry, selectedState);
 
+  useRestoreSavedValues(savedData, setValue);
+
   useEffect(() => {
     if (savedData) {
       initializeFromSavedData(savedData);
-
-      if (savedData.phone) {
-        setValue("phone", savedData.phone);
-      }
     }
-  }, [initializeFromSavedData, savedData, setValue]);
+  }, [initializeFromSavedData, savedData]);
 
   const handleGoHome = () => {
     dispatch(resetForm());
@@ -125,7 +119,7 @@ const StepOne = () => {
           labelKey="step1.gender"
           placeholderKey="step1.select"
           options={genderOptions}
-          rules={{ required: t("step1.genderRequired") }}
+          rules={schema.gender}
         />
 
         <ControlledInput

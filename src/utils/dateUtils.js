@@ -13,3 +13,8 @@ export const parseDobStringToObject = (dobString) => {
   }
   return { day: "", month: "", year: "" };
 };
+
+export const getInitialDob = (dob) => {
+  if (typeof dob === "string") return parseDobStringToObject(dob);
+  return dob || { day: "", month: "", year: "" };
+};
