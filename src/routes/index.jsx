@@ -1,8 +1,10 @@
-import Layout from "../layouts/Layout";
-import Home from "../pages/Home";
-import FormWizard from "../pages/FormWizard";
-import ThankYou from "../pages/ThankYou";
-import withAuth from "../hoc/withAuth";
+import Layout from "@layouts/Layout";
+
+import Home from "@pages/Home";
+import FormWizard from "@pages/FormWizard";
+import ThankYou from "@pages/ThankYou";
+
+import withAuth from "@hoc/withAuth";
 
 const ProtectedThankYou = withAuth(ThankYou);
 

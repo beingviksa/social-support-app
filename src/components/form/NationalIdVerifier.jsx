@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
-import { savePersonal } from "../../features/form/formSlice";
+import { savePersonal } from "@features/form/formSlice";
 
-import ControlledInput from "./ControlledInput";
-import Button from "../common/Button";
-import VerifiedBadge from "../common/VerifiedBadge";
+import Button from "@common/Button";
+import VerifiedBadge from "@common/VerifiedBadge";
+import ControlledInput from "@form/ControlledInput";
 
-import {
-  formatNationalId,
-  maskPhoneNumber,
-} from "../../utils/formatNationalId";
-import { mockUsers } from "../../utils/mockUsers";
+import { formatNationalId, maskPhoneNumber } from "@utils/formatters";
+import { mockUsers } from "@mocks/users.mock";
 
 const NationalIdVerifier = ({
   control,

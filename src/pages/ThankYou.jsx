@@ -6,13 +6,13 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 
-import { resetForm } from "../features/form/formSlice";
+import { resetForm } from "@features/form/formSlice";
 import {
   completeForm,
   resetFormProgress,
-} from "../features/formProgress/formProgressSlice";
+} from "@features/formProgress/formProgressSlice";
 
-import Button from "../components/common/Button";
+import Button from "@common/Button";
 
 const ThankYou = () => {
   const { t } = useTranslation();

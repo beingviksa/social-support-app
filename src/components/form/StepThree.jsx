@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { saveSituation } from "../../features/form/formSlice";
-import { completeStep } from "../../features/formProgress/formProgressSlice";
+import { getGPTSuggestion } from "@services/openai";
 
-import Button from "../common/Button";
-import SuggestionModal from "../common/SuggestionModal";
-import ControlledTextarea from "../form/ControlledTextarea";
-import HelpMeWriteButton from "../common/HelpMeWriteButton";
+import { saveSituation } from "@features/form/formSlice";
+import { completeStep } from "@features/formProgress/formProgressSlice";
 
-import { getGPTSuggestion } from "../../utils/gptService";
+import Button from "@common/Button";
+import HelpMeWriteButton from "@common/HelpMeWriteButton";
+import SuggestionModal from "@common/SuggestionModal";
+import ControlledTextarea from "@form/ControlledTextarea";
 
 const StepThree = () => {
   const { t } = useTranslation();
@@ -130,7 +130,7 @@ const StepThree = () => {
                 required: t("step3.required"),
                 minLength: {
                   value: 20,
-                  message: t("step3.minLength"),
+                  message: t("step3.minLength", { count: 20 }),
                 },
               }}
             />

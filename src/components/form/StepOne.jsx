@@ -4,21 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { savePersonal, resetForm } from "../../features/form/formSlice";
-import { completeStep } from "../../features/formProgress/formProgressSlice";
+import { savePersonal, resetForm } from "@features/form/formSlice";
+import { completeStep } from "@features/formProgress/formProgressSlice";
 
-import Button from "../common/Button";
-import ControlledInput from "../form/ControlledInput";
-import ControlledDropdown from "../form/ControlledDropdown";
-import NationalIdVerifier from "./NationalIdVerifier";
-import PhoneNumber from "./PhoneNumber";
-import DateOfBirth from "./DateOfBirth";
+import Button from "@common/Button";
+import ControlledInput from "@form/ControlledInput";
+import ControlledDropdown from "@form/ControlledDropdown";
+import NationalIdVerifier from "@form/NationalIdVerifier";
+import PhoneNumber from "@form/PhoneNumber";
+import DateOfBirth from "@form/DateOfBirth";
 
 import {
   mockCountries,
   statesByCountry,
   citiesByState,
-} from "../../utils/mockData";
+} from "@mocks/location.mock";
 
 const StepOne = () => {
   const { t } = useTranslation();

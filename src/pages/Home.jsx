@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
-import { startForm } from "../features/formProgress/formProgressSlice";
+import { startForm } from "@features/formProgress/formProgressSlice";
 
-import LanguageSwitcher from "../components/common/LanguageSwitcher";
-import Button from "../components/common/Button";
+import LanguageSwitcher from "@common/LanguageSwitcher";
+import Button from "@common/Button";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -65,7 +65,7 @@ const Home = () => {
             <p className="text-sm text-gray-700">
               {t(
                 "step1Desc",
-                "Provide your personal details including ID, contact, and location. All fields are validated."
+                "Provide your personal de tails including ID, contact, and location. All fields are validated."
               )}
             </p>
           </li>

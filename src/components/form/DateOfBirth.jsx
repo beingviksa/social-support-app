@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import Dropdown from "../common/Dropdown";
+
+import Dropdown from "@common/Dropdown";
 
 const DateOfBirth = ({ value = {}, onChange, error }) => {
   const { t } = useTranslation();

@@ -11,8 +11,8 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import formReducer from "../features/form/formSlice";
-import formProgressReducer from "../features/formProgress/formProgressSlice";
+import formReducer from "@features/form/formSlice";
+import formProgressReducer from "@features/formProgress/formProgressSlice";
 
 const persistConfig = {
   key: "formProgress",

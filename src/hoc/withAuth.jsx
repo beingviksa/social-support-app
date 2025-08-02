@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
-import { resetForm } from "../features/form/formSlice";
-import { resetFormProgress } from "../features/formProgress/formProgressSlice";
+import { resetForm } from "@features/form/formSlice";
+import { resetFormProgress } from "@features/formProgress/formProgressSlice";
 
 // eslint-disable-next-line no-unused-vars
 const withAuth = (Component) => {

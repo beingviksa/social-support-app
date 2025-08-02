@@ -1,5 +1,6 @@
 import { Controller } from "react-hook-form";
-import Dropdown from "../common/Dropdown";
+
+import Dropdown from "@common/Dropdown";
 
 const ControlledDropdown = ({ name, control, rules, ...rest }) => {
   return (

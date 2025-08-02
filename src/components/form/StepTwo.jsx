@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { saveFinancial } from "../../features/form/formSlice";
-import { completeStep } from "../../features/formProgress/formProgressSlice";
+import { saveFinancial } from "@features/form/formSlice";
+import { completeStep } from "@features/formProgress/formProgressSlice";
 
-import Button from "../common/Button";
-import ControlledInput from "../form/ControlledInput";
-import ControlledDropdown from "../form/ControlledDropdown";
+import Button from "@common/Button";
+import ControlledInput from "@form/ControlledInput";
+import ControlledDropdown from "@form/ControlledDropdown";
 
 const StepTwo = () => {
   const { t } = useTranslation();

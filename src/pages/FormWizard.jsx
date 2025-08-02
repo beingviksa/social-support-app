@@ -1,11 +1,12 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import StepOne from "../components/form/StepOne";
-import StepTwo from "../components/form/StepTwo";
-import StepThree from "../components/form/StepThree";
-import ProgressBar from "../components/form/ProgressBar";
-import withAuth from "../hoc/withAuth";
+import withAuth from "@hoc/withAuth";
+
+import StepOne from "@form/StepOne";
+import StepTwo from "@form/StepTwo";
+import StepThree from "@form/StepThree";
+import ProgressBar from "@form/ProgressBar";
 
 const FormWizard = () => {
   const { t } = useTranslation();

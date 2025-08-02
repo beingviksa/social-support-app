@@ -1,5 +1,6 @@
 import { Controller } from "react-hook-form";
-import TextInput from "../common/TextInput";
+
+import TextInput from "@common/TextInput";
 
 const ControlledInput = ({ name, control, rules, ...rest }) => {
   return (
