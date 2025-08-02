@@ -5,13 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { getGPTSuggestion } from "@services/openai";
-
 import { saveSituation } from "@features/form/formSlice";
 import { completeStep } from "@features/formProgress/formProgressSlice";
 
 import SuggestionModal from "@common/SuggestionModal";
 import SituationField from "@form/SituationField";
-import FormNavigationButtons from "@form/FormNavigationButtons";
+import FormStepLayout from "@/layouts/FormStepLayout";
 
 import {
   getPromptForField,
@@ -65,47 +64,37 @@ const StepThree = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="flex-grow overflow-y-auto">
-        <form
-          id="step3Form"
-          onSubmit={handleSubmit(onSubmit)}
-          aria-label="Step 3 - Situation Info"
-          className={`px-4 pb-32 pt-6 ${isSaving ? "opacity-50 pointer-events-none" : ""}`}
-        >
-          <div className="space-y-6">
-            {situationFields.map((field) => (
-              <SituationField
-                key={field.name}
-                {...field}
-                control={control}
-                loadingField={loadingField}
-                onHelpClick={handleHelpMeWrite}
-                t={t}
-              />
-            ))}
-
-            {error && <p className="text-red-500">{error}</p>}
-          </div>
-        </form>
-
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-md p-4 z-50">
-          <FormNavigationButtons
-            isSaving={isSaving}
-            onBackClick={() => navigate("/form/step-2")}
-            nextLabelKey="buttons.submit"
-            formId="step3Form"
+    <FormStepLayout
+      formId="step3Form"
+      isSaving={isSaving}
+      onBackClick={() => navigate("/form/step-2")}
+      onSubmit={handleSubmit(onSubmit)}
+      ariaLabel="Step 3 - Situation Info"
+      nextLabelKey="buttons.submit"
+    >
+      <div className="space-y-6">
+        {situationFields.map((field) => (
+          <SituationField
+            key={field.name}
+            {...field}
+            control={control}
+            loadingField={loadingField}
+            onHelpClick={handleHelpMeWrite}
+            t={t}
           />
-        </div>
-        {activeField && (
-          <SuggestionModal
-            content={suggestion}
-            onAccept={onAcceptSuggestion}
-            onClose={() => setActiveField(null)}
-          />
-        )}
+        ))}
+
+        {error && <p className="text-red-500">{error}</p>}
       </div>
-    </div>
+
+      {activeField && (
+        <SuggestionModal
+          content={suggestion}
+          onAccept={onAcceptSuggestion}
+          onClose={() => setActiveField(null)}
+        />
+      )}
+    </FormStepLayout>
   );
 };
 

@@ -5,12 +5,10 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 import { startForm } from "@features/formProgress/formProgressSlice";
 
-import LanguageSwitcher from "@common/LanguageSwitcher";
 import Button from "@common/Button";
 
 const Home = () => {
   const { t } = useTranslation();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,44 +18,49 @@ const Home = () => {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-6 py-12 flex flex-col items-center justify-center text-gray-800">
-      <LanguageSwitcher />
+    <main className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white px-6 pt-6 pb-12 text-gray-800">
+      <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-12 max-w-6xl mx-auto mt-10 mb-8">
+        <div className="flex-1 text-center md:text-left">
+          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
+            {t("appTitle", "Social Support Assistance Portal")}
+          </h1>
+          <p className="text-lg sm:text-xl text-gray-600 mb-8">
+            {t(
+              "appDesc",
+              "Apply for financial aid with confidence. Our guided application helps you explain your situation clearly with optional AI assistance."
+            )}
+          </p>
+          <Button
+            onClick={handleStart}
+            className="text-lg px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white inline-flex items-center gap-2"
+          >
+            {t("startNow", "Start Application")}
+            <ArrowRightIcon className="w-5 h-5" />
+          </Button>
+        </div>
 
-      {/* Header */}
-      <header className="text-center max-w-3xl mb-12">
-        <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-          {t("appTitle", "Social Support Assistance Portal")}
-        </h1>
-        <p className="text-lg sm:text-xl">
-          {t(
-            "appDesc",
-            "Apply for financial aid with confidence. Our accessible, step-by-step application helps you describe your situation with optional AI assistance."
-          )}
-        </p>
-      </header>
+        <div className="flex-1">
+          <img
+            src="/assets/illustration.svg"
+            alt={t("heroAltText", "Illustration showing support")}
+            className="w-full max-w-md mx-auto"
+            loading="lazy"
+          />
+        </div>
+      </section>
 
-      {/* Hero Image */}
-      <div className="w-full max-w-xl mb-10">
-        <img
-          src="/assets/illustration.svg"
-          alt={t("heroAltText", "Illustration showing support")}
-          className="w-full h-auto"
-        />
-      </div>
-
-      {/* Steps */}
       <section
         aria-labelledby="how-it-works"
-        className="w-full max-w-4xl mb-12"
+        className="w-full max-w-5xl mx-auto mt-10"
       >
         <h2
           id="how-it-works"
-          className="text-2xl font-semibold text-center mb-6"
+          className="text-2xl sm:text-3xl font-semibold text-center mb-10"
         >
           {t("howItWorks", "How It Works")}
         </h2>
 
-        <ol className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+        <ol className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           <li className="bg-white rounded shadow p-5 border-l-4 border-blue-500">
             <h3 className="font-bold text-lg mb-2">
               1. {t("step1Title", "Personal Information")}
@@ -65,7 +68,7 @@ const Home = () => {
             <p className="text-sm text-gray-700">
               {t(
                 "step1Desc",
-                "Provide your personal de tails including ID, contact, and location. All fields are validated."
+                "Provide your personal details including ID, contact, and location. All fields are validated."
               )}
             </p>
           </li>
@@ -95,12 +98,6 @@ const Home = () => {
           </li>
         </ol>
       </section>
-
-      {/* CTA Button */}
-      <Button onClick={handleStart} className="text-lg px-6 py-3">
-        {t("startNow", "Start Application")}
-        <ArrowRightIcon className="w-5 h-5 ml-2" />
-      </Button>
     </main>
   );
 };

@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom";
-
 import LanguageSwitcher from "@components/common/LanguageSwitcher";
 import ScrollToTop from "@components/common/ScrollToTop";
 
 const Layout = () => {
   return (
-    <div className="relative min-h-screen">
+    <div className="flex flex-col bg-white">
       <ScrollToTop />
-      <LanguageSwitcher />
-      <Outlet />
+      <main className="flex-1">
+        <LanguageSwitcher />
+        <Outlet />
+      </main>
     </div>
   );
 };
