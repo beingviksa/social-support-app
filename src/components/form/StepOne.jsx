@@ -13,12 +13,12 @@ import useRestoreSavedValues from "@hooks/useRestoreSavedValues";
 import { formatDobObjectToString, getInitialDob } from "@/utils/dateUtils";
 import { personalFormSchema } from "@validations/personalFormSchema";
 
-import Button from "@common/Button";
 import ControlledInput from "@form/ControlledInput";
 import ControlledDropdown from "@form/ControlledDropdown";
 import NationalIdVerifier from "@form/NationalIdVerifier";
 import PhoneNumber from "@form/PhoneNumber";
 import DateOfBirth from "@form/DateOfBirth";
+import FormNavigationButtons from "@form/FormNavigationButtons";
 
 import { genderOptions, getCountryOptions } from "@constants/dropdownoptions";
 
@@ -78,111 +78,118 @@ const StepOne = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      aria-label="Step 1 - Personal Info"
-      className={isSaving ? "opacity-50 pointer-events-none" : ""}
-    >
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <ControlledInput
-          name="name"
-          control={control}
-          labelKey="step1.name"
-          placeholderKey="step1.namePlaceholder"
-          rules={schema.name}
-        />
-
-        <NationalIdVerifier
-          control={control}
-          setValue={setValue}
-          watch={watch}
-          trigger={trigger}
-          defaultVerified={savedData?.isVerified}
-        />
-
-        <Controller
-          name="dob"
-          control={control}
-          rules={schema.dob}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <DateOfBirth
-              value={value}
-              onChange={onChange}
-              error={error?.message}
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-grow overflow-y-auto">
+        <form
+          id="step1Form"
+          onSubmit={handleSubmit(onSubmit)}
+          aria-label="Step 1 - Personal Info"
+          className={`px-4 pb-32 pt-6 ${isSaving ? "opacity-50 pointer-events-none" : ""}`}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <ControlledInput
+              name="name"
+              control={control}
+              labelKey="step1.name"
+              placeholderKey="step1.namePlaceholder"
+              rules={schema.name}
             />
-          )}
-        />
 
-        <ControlledDropdown
-          name="gender"
-          control={control}
-          labelKey="step1.gender"
-          placeholderKey="step1.select"
-          options={genderOptions}
-          rules={schema.gender}
-        />
+            <NationalIdVerifier
+              control={control}
+              setValue={setValue}
+              watch={watch}
+              trigger={trigger}
+              defaultVerified={savedData?.isVerified}
+            />
 
-        <ControlledInput
-          name="address"
-          control={control}
-          labelKey="step1.address"
-          placeholderKey="step1.addressPlaceholder"
-        />
+            <Controller
+              name="dob"
+              control={control}
+              rules={schema.dob}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <DateOfBirth
+                  value={value}
+                  onChange={onChange}
+                  error={error?.message}
+                />
+              )}
+            />
 
-        <ControlledDropdown
-          name="country"
-          control={control}
-          labelKey="step1.country"
-          placeholderKey="step1.select"
-          options={getCountryOptions()}
-          rules={schema.country}
-        />
+            <ControlledDropdown
+              name="gender"
+              control={control}
+              labelKey="step1.gender"
+              placeholderKey="step1.select"
+              options={genderOptions}
+              rules={schema.gender}
+            />
 
-        <ControlledDropdown
-          name="state"
-          control={control}
-          labelKey="step1.state"
-          placeholderKey="step1.select"
-          options={states.map((s) => ({ value: s, label: s }))}
-          disabled={!states.length}
-          rules={schema.state}
-        />
+            <ControlledInput
+              name="address"
+              control={control}
+              labelKey="step1.address"
+              placeholderKey="step1.addressPlaceholder"
+            />
 
-        <ControlledDropdown
-          name="city"
-          control={control}
-          labelKey="step1.city"
-          placeholderKey="step1.select"
-          options={cities.map((c) => ({ value: c, label: c }))}
-          disabled={!cities.length}
-          rules={schema.city}
-        />
+            <ControlledDropdown
+              name="country"
+              control={control}
+              labelKey="step1.country"
+              placeholderKey="step1.select"
+              options={getCountryOptions()}
+              rules={schema.country}
+            />
 
-        <PhoneNumber
-          control={control}
-          setValue={setValue}
-          selectedCountry={selectedCountry}
-          initialPhone={savedData?.phone}
-        />
+            <ControlledDropdown
+              name="state"
+              control={control}
+              labelKey="step1.state"
+              placeholderKey="step1.select"
+              options={states.map((s) => ({ value: s, label: s }))}
+              disabled={!states.length}
+              rules={schema.state}
+            />
 
-        <ControlledInput
-          name="email"
-          control={control}
-          placeholderKey="step1.emailPlaceholder"
-          labelKey="step1.email"
-          rules={schema.email}
-        />
+            <ControlledDropdown
+              name="city"
+              control={control}
+              labelKey="step1.city"
+              placeholderKey="step1.select"
+              options={cities.map((c) => ({ value: c, label: c }))}
+              disabled={!cities.length}
+              rules={schema.city}
+            />
+
+            <PhoneNumber
+              control={control}
+              setValue={setValue}
+              selectedCountry={selectedCountry}
+              initialPhone={savedData?.phone}
+            />
+
+            <ControlledInput
+              name="email"
+              control={control}
+              placeholderKey="step1.emailPlaceholder"
+              labelKey="step1.email"
+              rules={schema.email}
+            />
+          </div>
+        </form>
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-md p-4 z-50">
+          <FormNavigationButtons
+            isSaving={isSaving}
+            onBackClick={handleGoHome}
+            backLabelKey="buttons.backToHome"
+            formId="step1Form"
+          />
+        </div>
       </div>
-
-      <div className="mt-8 flex justify-between flex-wrap gap-4">
-        <Button variant="text" onClick={handleGoHome}>
-          ← {t("buttons.backToHome")}
-        </Button>
-        <Button type="submit" isLoading={isSaving}>
-          {t("buttons.saveAndContinue")}
-        </Button>
-      </div>
-    </form>
+    </div>
   );
 };
 

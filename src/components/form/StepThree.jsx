@@ -9,9 +9,9 @@ import { getGPTSuggestion } from "@services/openai";
 import { saveSituation } from "@features/form/formSlice";
 import { completeStep } from "@features/formProgress/formProgressSlice";
 
-import Button from "@common/Button";
 import SuggestionModal from "@common/SuggestionModal";
 import SituationField from "@form/SituationField";
+import FormNavigationButtons from "@form/FormNavigationButtons";
 
 import {
   getPromptForField,
@@ -65,43 +65,47 @@ const StepThree = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      aria-label="Step 3 - Situation Info"
-      className={isSaving ? "opacity-50 pointer-events-none" : ""}
-    >
-      <div className="space-y-6">
-        {situationFields.map((field) => (
-          <SituationField
-            key={field.name}
-            {...field}
-            control={control}
-            loadingField={loadingField}
-            onHelpClick={handleHelpMeWrite}
-            t={t}
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-grow overflow-y-auto">
+        <form
+          id="step3Form"
+          onSubmit={handleSubmit(onSubmit)}
+          aria-label="Step 3 - Situation Info"
+          className={`px-4 pb-32 pt-6 ${isSaving ? "opacity-50 pointer-events-none" : ""}`}
+        >
+          <div className="space-y-6">
+            {situationFields.map((field) => (
+              <SituationField
+                key={field.name}
+                {...field}
+                control={control}
+                loadingField={loadingField}
+                onHelpClick={handleHelpMeWrite}
+                t={t}
+              />
+            ))}
+
+            {error && <p className="text-red-500">{error}</p>}
+          </div>
+        </form>
+
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-md p-4 z-50">
+          <FormNavigationButtons
+            isSaving={isSaving}
+            onBackClick={() => navigate("/form/step-2")}
+            nextLabelKey="buttons.submit"
+            formId="step3Form"
           />
-        ))}
-
-        {error && <p className="text-red-500">{error}</p>}
-
-        <div className="mt-8 flex justify-between flex-wrap gap-4">
-          <Button variant="text" onClick={() => navigate("/form/step-2")}>
-            ← {t("buttons.back")}
-          </Button>
-          <Button type="submit" isLoading={isSaving}>
-            {t("buttons.submit")}
-          </Button>
         </div>
+        {activeField && (
+          <SuggestionModal
+            content={suggestion}
+            onAccept={onAcceptSuggestion}
+            onClose={() => setActiveField(null)}
+          />
+        )}
       </div>
-
-      {activeField && (
-        <SuggestionModal
-          content={suggestion}
-          onAccept={onAcceptSuggestion}
-          onClose={() => setActiveField(null)}
-        />
-      )}
-    </form>
+    </div>
   );
 };
 

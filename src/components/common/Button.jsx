@@ -9,6 +9,7 @@ const Button = ({
   disabled = false,
   className = "",
   variant = "primary",
+  form,
 }) => {
   const { t } = useTranslation();
 
@@ -46,6 +47,7 @@ const Button = ({
     <button
       type={type}
       onClick={onClick}
+      form={form}
       disabled={disabled || isLoading}
       className={`${baseStyles} ${variants[variant]} ${disabled ? "opacity-50 cursor-not-allowed" : ""} ${className}`}
     >
