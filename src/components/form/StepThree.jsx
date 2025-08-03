@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+import { usePromptBuilder } from "@/hooks/usePromptBuilder";
 import { getGPTSuggestion } from "@services/openai";
+
 import { saveSituation } from "@features/form/formSlice";
 import { completeStep } from "@features/formProgress/formProgressSlice";
 
@@ -12,25 +14,23 @@ import SuggestionModal from "@common/SuggestionModal";
 import SituationField from "@form/SituationField";
 import FormStepLayout from "@/layouts/FormStepLayout";
 
-import {
-  getPromptForField,
-  situationFields,
-} from "@/constants/situationFields";
+import { situationFields } from "@/constants/situationFields";
 
 const StepThree = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { getPrompt } = usePromptBuilder();
 
-  const savedData = useSelector((state) => state.form.situation);
+  const { situation, personal, financial } = useSelector((state) => state.form);
 
-  const {
-    personal: { name, city, country },
-    financial: { dependents, employmentStatus, housing, income, maritalStatus },
-  } = useSelector((state) => state.form);
+  const contextData = {
+    ...personal,
+    ...financial,
+  };
 
   const { control, handleSubmit, setValue } = useForm({
-    defaultValues: savedData || {},
+    defaultValues: situation || {},
   });
 
   const [activeField, setActiveField] = useState(null);
@@ -44,18 +44,7 @@ const StepThree = () => {
     setError("");
 
     try {
-      const prompt = getPromptForField(
-        field,
-        t,
-        name,
-        city,
-        country,
-        dependents,
-        employmentStatus,
-        housing,
-        income,
-        maritalStatus
-      );
+      const prompt = getPrompt(field, contextData);
 
       const suggestion = await getGPTSuggestion(prompt);
 
