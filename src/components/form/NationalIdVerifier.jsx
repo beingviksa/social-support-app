@@ -3,13 +3,14 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 import { savePersonal } from "@features/form/formSlice";
-
 import Button from "@common/Button";
 import VerifiedBadge from "@common/VerifiedBadge";
 import ControlledInput from "@form/ControlledInput";
 
-import { formatNationalId, maskPhoneNumber } from "@utils/formatters";
+import { personalFormSchema } from "@validations/personalFormSchema";
+import { formatNationalId } from "@utils/formatters";
 import { mockUsers } from "@mocks/users.mock";
+import OtpModal from "./OtpModal";
 
 const NationalIdVerifier = ({
   control,
@@ -21,56 +22,65 @@ const NationalIdVerifier = ({
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const [otpValue, setOtpValue] = useState("");
   const [otpStatus, setOtpStatus] = useState("idle");
   const [isVerified, setIsVerified] = useState(defaultVerified);
   const [otpTargetPhone, setOtpTargetPhone] = useState("");
   const [expectedOtp, setExpectedOtp] = useState("");
-  const [verifying, setVerifying] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(false);
   const [resendTimer, setResendTimer] = useState(0);
+  const [sendOtpError, setSendOtpError] = useState("");
 
-  // resend timer
+  const rules = personalFormSchema(t, isVerified, sendOtpError);
+
+  const nationalId = watch("nationalId");
+  const digitsOnly = nationalId?.replace(/\D/g, "") || "";
+  const isIdReady = digitsOnly.length === 12;
+
+  // Handle resend timer countdown
   useEffect(() => {
-    let timer;
     if (resendDisabled && resendTimer > 0) {
-      timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         setResendTimer((prev) => prev - 1);
       }, 1000);
+      return () => clearTimeout(timer);
     } else if (resendTimer === 0) {
       setResendDisabled(false);
     }
-    return () => clearTimeout(timer);
   }, [resendDisabled, resendTimer]);
 
-  const handleVerifyOtp = async () => {
-    try {
-      setVerifying(true);
-
-      // simulate API delay
-      await new Promise((res) => setTimeout(res, 1000));
-
-      if (otpValue === expectedOtp) {
-        setIsVerified(true);
-        setShowOtpModal(false);
-        setOtpStatus("success");
-
-        dispatch(savePersonal({ ...watch(), isVerified: true }));
-
-        // Trigger re-validation to clear any field error
-        setTimeout(() => {
-          trigger("nationalId");
-        }, 0);
-      } else {
-        setOtpStatus("error");
-      }
-    } catch (error) {
-      console.error("OTP verification error:", error);
-      setOtpStatus("error");
-    } finally {
-      setVerifying(false);
+  // Auto-hide error after 5 seconds
+  useEffect(() => {
+    if (sendOtpError) {
+      const timer = setTimeout(() => setSendOtpError(""), 5000);
+      return () => clearTimeout(timer);
     }
+  }, [sendOtpError]);
+
+  const handleSendOtp = () => {
+    setOtpStatus("loading");
+    setSendOtpError("");
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const user = mockUsers.find((u) => u.nationalId === nationalId);
+
+        if (!user) {
+          setOtpStatus("idle");
+          setSendOtpError(
+            t("step1.otp.noRecord", "No record found for this National ID")
+          );
+          return;
+        }
+
+        setOtpTargetPhone(user.phone);
+        setExpectedOtp(user.otp);
+        setOtpStatus("success");
+        setShowOtpModal(true);
+        setResendDisabled(true);
+        setResendTimer(30);
+      }, 1000);
+    });
   };
 
   return (
@@ -81,15 +91,7 @@ const NationalIdVerifier = ({
         labelKey="step1.nationalId"
         placeholder="1111-2222-3333"
         inputMode="numeric"
-        rules={{
-          required: t("step1.nidRequired"),
-          validate: {
-            lengthCheck: (val) =>
-              val.replace(/\D/g, "").length === 12 || t("step1.nidLength"),
-            numberOnly: (val) => /^[\d-]+$/.test(val) || t("step1.nidDigits"),
-            otpVerified: () => isVerified || t("step1.otp.notVerified"),
-          },
-        }}
+        rules={rules.nationalId}
         onChange={(val) => {
           const formatted = formatNationalId(val);
           setValue("nationalId", formatted, { shouldValidate: true });
@@ -103,76 +105,36 @@ const NationalIdVerifier = ({
         <Button
           type="button"
           className="mt-2 text-sm"
-          disabled={resendDisabled}
-          onClick={() => {
-            setVerifying(false);
-            const id = watch("nationalId");
-            const user = mockUsers.find((u) => u.nationalId === id);
-            if (!user) return alert("No record found for this National ID");
-
-            setOtpTargetPhone(user.phone);
-            setExpectedOtp(user.otp);
-            setOtpStatus("loading");
-            setOtpValue("");
-            setResendDisabled(true);
-            setResendTimer(30);
-
-            setTimeout(() => {
-              setShowOtpModal(true);
-              setOtpStatus("success");
-            }, 1000);
-          }}
+          disabled={!isIdReady || (resendDisabled && otpStatus !== "loading")}
+          onClick={handleSendOtp}
         >
-          {resendDisabled
-            ? t("step1.otp.resendOtpIn", { seconds: resendTimer })
-            : otpStatus === "loading"
-              ? t("step1.otp.verifying", "Sending OTP...")
+          {otpStatus === "loading"
+            ? t("step1.otp.verifying", "Verifying ID...")
+            : resendDisabled
+              ? t("step1.otp.resendOtpIn", { seconds: resendTimer })
               : t("step1.otp.sendOtp", "Send OTP")}
         </Button>
       )}
 
+      {sendOtpError && (
+        <p className="text-red-500 text-sm mt-1" role="alert">
+          {sendOtpError}
+        </p>
+      )}
+
       {showOtpModal && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow max-w-md w-full">
-            <h3 className="text-lg font-semibold mb-2">
-              {t("step1.otp.title")}
-            </h3>
-            <p className="text-sm text-gray-600 mb-3">
-              {t("step1.otp.sentTo", {
-                masked: maskPhoneNumber(otpTargetPhone),
-              })}
-            </p>
-
-            <input
-              type="text"
-              value={otpValue}
-              onChange={(e) =>
-                setOtpValue(e.target.value.replace(/\D/g, "").slice(0, 6))
-              }
-              placeholder={t("step1.otp.placeholder")}
-              className="input w-full mb-2"
-            />
-
-            {otpStatus === "error" && (
-              <p className="text-red-500 text-sm mb-2">
-                {t("step1.otp.invalid")}
-              </p>
-            )}
-
-            <div className="flex justify-end gap-2">
-              <Button variant="text" onClick={() => setShowOtpModal(false)}>
-                {t("step1.otp.cancel")}
-              </Button>
-              <Button
-                onClick={handleVerifyOtp}
-                isLoading={verifying}
-                loadingText={t("step1.otp.verifying")}
-              >
-                {t("step1.otp.verify")}
-              </Button>
-            </div>
-          </div>
-        </div>
+        <OtpModal
+          phone={otpTargetPhone}
+          expectedOtp={expectedOtp}
+          onVerifySuccess={() => {
+            setIsVerified(true);
+            setShowOtpModal(false);
+            setOtpStatus("success");
+            dispatch(savePersonal({ ...watch(), isVerified: true }));
+            setTimeout(() => trigger("nationalId"), 0);
+          }}
+          onClose={() => setShowOtpModal(false)}
+        />
       )}
     </div>
   );

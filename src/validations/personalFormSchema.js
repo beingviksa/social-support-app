@@ -1,4 +1,8 @@
-export const personalFormSchema = (t) => ({
+export const personalFormSchema = (
+  t,
+  isVerified = false,
+  sendOtpError = ""
+) => ({
   name: {
     required: t("step1.nameRequired"),
   },
@@ -31,6 +35,18 @@ export const personalFormSchema = (t) => ({
         return t("step1.dobRequired");
       }
       return true;
+    },
+  },
+  nationalId: {
+    required: t("step1.nidRequired"),
+    validate: {
+      lengthCheck: (val) =>
+        val.replace(/\D/g, "").length === 12 || t("step1.nidLength"),
+      numberOnly: (val) => /^[\d-]+$/.test(val) || t("step1.nidDigits"),
+      otpVerified: () => {
+        if (sendOtpError) return true;
+        return isVerified || t("step1.otp.notVerified");
+      },
     },
   },
 });

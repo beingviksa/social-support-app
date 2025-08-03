@@ -56,7 +56,8 @@
       "cancel": "Cancel",
       "invalid": "Invalid OTP. Try again.",
       "notVerified": "Please verify your National ID via OTP",
-      "verified": "Verified"
+      "verified": "Verified",
+      "noRecord": "No record found for this National ID"
     },
     "months": {
       "01": "January",
