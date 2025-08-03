@@ -129,6 +129,7 @@ const StepOne = () => {
           control={control}
           labelKey="step1.address"
           placeholderKey="step1.addressPlaceholder"
+          rules={schema.address}
         />
 
         <ControlledDropdown

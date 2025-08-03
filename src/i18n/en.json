@@ -2,18 +2,16 @@
   "appTitle": "Social Support Assistance Portal",
   "appDesc": "Apply for financial aid with confidence. Our accessible, step-by-step application helps you describe your situation with optional AI assistance.",
   "howItWorks": "How It Works",
-  "step1Title": "Personal Information",
-  "step1Desc": "Provide your personal details including ID, contact, and location. All fields are validated.",
-  "step2Title": "Family & Financial Info",
-  "step2Desc": "Tell us about your employment, income, housing, and dependents to assess your eligibility.",
-  "step3Title": "Describe Your Situation",
-  "step3Desc": "Use our AI-powered assistant to help you describe your current challenges in clear language.",
+  "stepsListLabel": "Application steps",
   "startNow": "Start Application",
   "heroAltText": "Illustration showing support",
   "formTitle": "Application Form",
   "stepProgress": "Step {{current}} of {{total}}",
 
   "step1": {
+    "title": "Personal Information",
+    "desc": "Provide your personal details including ID, contact, and location. All fields are validated.",
+    "docTitle": "Step 1: Personal Information - Application Form",
     "name": "Name",
     "namePlaceholder": "John Doe",
     "nameRequired": "Name is required",
@@ -27,6 +25,7 @@
     "genderRequired": "Gender is required",
     "address": "Address",
     "addressPlaceholder": "123 Main Street, Apt 4B",
+    "addressRequired": "Address is required",
     "country": "Country",
     "countryRequired": "Country is required",
     "state": "State",
@@ -76,6 +75,9 @@
   },
 
   "step2": {
+    "title": "Family & Financial Info",
+    "desc": "Tell us about your employment, income, housing, and dependents to assess your eligibility.",
+    "docTitle": "Step 2: Family & Financial Info - Application Form",
     "maritalStatus": "Marital Status",
     "dependents": "Number of Dependents",
     "employment": "Employment Status",
@@ -105,6 +107,9 @@
   },
 
   "step3": {
+    "title": "Describe Your Situation",
+    "desc": "Use our AI-powered assistant to help you describe your current challenges in clear language.",
+    "docTitle": "Step 3: Describe Your Situation - Application Form",
     "financial": "Current Financial Situation",
     "employment": "Employment Circumstances",
     "reason": "Reason for Applying",
@@ -130,6 +135,7 @@
   "thankYou": {
     "title": "Thank You!",
     "subtitle": "Your application has been submitted successfully.",
+    "pageTitle": "Thank You - Application Submitted",
     "downloadPdf": "Download as PDF",
     "pdfTitle": "Social Support Application Summary",
     "section": {

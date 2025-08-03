@@ -5,6 +5,9 @@ export const personalFormSchema = (t) => ({
   gender: {
     required: t("step1.genderRequired"),
   },
+  address: {
+    required: t("step1.addressRequired"),
+  },
   country: {
     required: t("step1.countryRequired"),
   },

@@ -6,6 +6,8 @@
       "@components/*": ["components/*"],
       "@features/*": ["features/*"],
       "@utils/*": ["utils/*"],
+      "@pages/*": ["pages/*"],
+      "@hoc/*": ["hoc/*"],
       "@services/*": ["services/*"],
       "@hooks/*": ["hooks/*"],
       "@common/*": ["components/common/*"],

@@ -10,13 +10,14 @@ const Button = ({
   className = "",
   variant = "primary",
   form,
+  ariaLabel,
 }) => {
   const { t } = useTranslation();
 
   const effectiveLoadingText = loadingText || t("buttons.saving");
 
   const baseStyles =
-    "inline-flex items-center justify-center px-4 py-2 rounded font-medium focus:outline-none transition cursor-pointer";
+    "inline-flex items-center justify-center px-4 py-2 rounded font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-600 transition cursor-pointer";
 
   const variants = {
     primary: "bg-blue-600 text-white hover:bg-blue-700",
@@ -25,7 +26,7 @@ const Button = ({
   };
 
   const loadingSpinner = (
-    <svg className="animate-spin h-4 w-4 mr-2 text-white" viewBox="0 0 24 24">
+    <svg className="animate-spin h-4 w-4 me-2 text-white" viewBox="0 0 24 24">
       <circle
         className="opacity-25"
         cx="12"
@@ -49,7 +50,11 @@ const Button = ({
       onClick={onClick}
       form={form}
       disabled={disabled || isLoading}
-      className={`${baseStyles} ${variants[variant]} ${disabled ? "opacity-50 cursor-not-allowed" : ""} ${className}`}
+      aria-label={ariaLabel || undefined}
+      aria-busy={isLoading}
+      className={`${baseStyles} ${variants[variant]} ${
+        disabled ? "opacity-50 cursor-not-allowed" : ""
+      } ${className}`}
     >
       {isLoading && loadingSpinner}
       {isLoading ? effectiveLoadingText : children}

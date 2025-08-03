@@ -8,36 +8,60 @@ import StepTwo from "@form/StepTwo";
 import StepThree from "@form/StepThree";
 import ProgressBar from "@form/ProgressBar";
 
+const steps = [
+  {
+    path: "/form/step-1",
+    component: StepOne,
+    titleKey: "step1.title",
+    fallback: "Personal Information",
+  },
+  {
+    path: "/form/step-2",
+    component: StepTwo,
+    titleKey: "step2.title",
+    fallback: "Family & Financial Info",
+  },
+  {
+    path: "/form/step-3",
+    component: StepThree,
+    titleKey: "step3.title",
+    fallback: "Describe Your Situation",
+  },
+];
+
 const FormWizard = () => {
   const { t } = useTranslation();
-
   const location = useLocation();
 
-  const stepMap = {
-    "/form/step-1": 1,
-    "/form/step-2": 2,
-    "/form/step-3": 3,
-  };
+  const currentStepIndex = steps.findIndex(
+    (step) => step.path === location.pathname
+  );
+  const currentStep = currentStepIndex + 1;
 
-  const currentStep = stepMap[location.pathname] || 1;
+  const heading = steps[currentStepIndex]
+    ? t(steps[currentStepIndex].titleKey, steps[currentStepIndex].fallback)
+    : t("formTitle", "Application Form");
 
-  const ProtectedStep1 = withAuth(StepOne);
-  const ProtectedStep2 = withAuth(StepTwo);
-  const ProtectedStep3 = withAuth(StepThree);
+  const StepRoutes = steps.map((step, index) => {
+    const ProtectedComponent = withAuth(step.component);
+    return (
+      <Route
+        key={index}
+        path={`step-${index + 1}`}
+        element={<ProtectedComponent />}
+      />
+    );
+  });
 
   return (
     <main className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">{t("formTitle")}</h1>
+      <h1 className="text-3xl font-bold mb-6">{heading}</h1>
 
-      {/* Step Indicator */}
-      <ProgressBar step={currentStep} totalSteps={3} />
+      <ProgressBar step={currentStep} totalSteps={steps.length} />
 
-      {/* Step Content */}
       <Routes>
         <Route path="/" element={<Navigate to="step-1" replace />} />
-        <Route path="step-1" element={<ProtectedStep1 />} />
-        <Route path="step-2" element={<ProtectedStep2 />} />
-        <Route path="step-3" element={<ProtectedStep3 />} />
+        {StepRoutes}
       </Routes>
     </main>
   );

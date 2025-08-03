@@ -25,6 +25,13 @@ const ThankYou = () => {
     (state) => state.formProgress
   );
 
+  useEffect(() => {
+    document.title = t(
+      "thankYou.pageTitle",
+      "Thank You - Application Submitted"
+    );
+  }, [t]);
+
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(16);
