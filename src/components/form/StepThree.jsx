@@ -24,6 +24,11 @@ const StepThree = () => {
 
   const savedData = useSelector((state) => state.form.situation);
 
+  const {
+    personal: { name, city, country },
+    financial: { dependents, employmentStatus, housing, income, maritalStatus },
+  } = useSelector((state) => state.form);
+
   const { control, handleSubmit, setValue } = useForm({
     defaultValues: savedData || {},
   });
@@ -39,8 +44,21 @@ const StepThree = () => {
     setError("");
 
     try {
-      const prompt = getPromptForField(field);
+      const prompt = getPromptForField(
+        field,
+        t,
+        name,
+        city,
+        country,
+        dependents,
+        employmentStatus,
+        housing,
+        income,
+        maritalStatus
+      );
+
       const suggestion = await getGPTSuggestion(prompt);
+
       setSuggestion(suggestion);
       setActiveField(field);
     } catch {

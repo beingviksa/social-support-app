@@ -119,9 +119,11 @@
       "error": "Failed to generate suggestion. Please try again."
     },
     "prompts": {
-      "financial": "Write a short paragraph describing someone facing financial hardship due to job loss or low income.",
-      "employment": "Describe a person’s current employment challenges in a professional but empathetic tone.",
-      "reason": "Write a compelling reason why someone would apply for financial support."
+      "financial": "My name is {{name}}. I live in {{city}}, {{country}}, and I am currently {{maritalStatus}} with {{dependents}} dependents. I earn approximately {{income}} per month, and my current housing status is {{housing}}. Please write a first-person paragraph describing my current financial situation, including any hardship I might be facing in covering basic expenses or managing my obligations.",
+
+      "employment": "My name is {{name}}. I am currently {{employmentStatus}} and earn around {{income}} per month. Please write a short paragraph in the first person explaining my current employment situation, including any difficulties I'm facing such as irregular work, recent job loss, or job insecurity.",
+
+      "reason": "My name is {{name}}, and I live in {{country}}. I am {{maritalStatus}} with {{dependents}} dependents, and my housing status is {{housing}}. Please write a sincere, first-person paragraph explaining why I am applying for financial assistance, based on my personal and living situation."
     }
   },
 

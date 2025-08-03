@@ -16,11 +16,40 @@ export const situationFields = [
   },
 ];
 
-export const getPromptForField = (field, t) => {
+export const getPromptForField = (
+  field,
+  t,
+  name,
+  city,
+  country,
+  dependents,
+  employmentStatus,
+  housing,
+  income,
+  maritalStatus
+) => {
   const prompts = {
-    financialSituation: t("step3.prompts.financial"),
-    employmentCircumstances: t("step3.prompts.employment"),
-    reasonForApplying: t("step3.prompts.reason"),
+    financialSituation: t("step3.prompts.financial", {
+      name,
+      city,
+      country,
+      maritalStatus,
+      dependents,
+      income,
+      housing,
+    }),
+    employmentCircumstances: t("step3.prompts.employment", {
+      name,
+      employmentStatus,
+      income,
+    }),
+    reasonForApplying: t("step3.prompts.reason", {
+      name,
+      country,
+      maritalStatus,
+      dependents,
+      housing,
+    }),
   };
 
   return prompts[field] || "";
