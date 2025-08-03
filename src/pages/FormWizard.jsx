@@ -54,8 +54,10 @@ const FormWizard = () => {
   });
 
   return (
-    <main className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">{heading}</h1>
+    <main className="max-w-4xl mx-auto p-0 sm:p-6">
+      <h1 className="text-3xl font-bold w-[80%] sm:w-full mb-0 sm:mb-6 p-4 sm:p-0">
+        {heading}
+      </h1>
 
       <ProgressBar step={currentStep} totalSteps={steps.length} />
 

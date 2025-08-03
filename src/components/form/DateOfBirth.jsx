@@ -34,7 +34,7 @@ const DateOfBirth = ({ value = {}, onChange, error }) => {
 
   return (
     <div className="w-full">
-      <label className="block font-medium mb-1">
+      <label className="block font-medium mb-1 text-sm text-gray-700">
         {t("step1.dob", "Date of Birth")}
       </label>
       <div className="flex gap-2 flex-wrap sm:flex-nowrap">

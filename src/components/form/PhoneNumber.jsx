@@ -9,7 +9,10 @@ const PhoneNumber = ({ control, name = "phone", selectedCountry }) => {
 
   return (
     <div className="w-full">
-      <label htmlFor={name} className="block font-medium mb-1">
+      <label
+        htmlFor="phone-input"
+        className="block font-medium mb-1 text-sm text-gray-700"
+      >
         {t("step1.phone", "Phone Number")}
       </label>
 
@@ -32,17 +35,20 @@ const PhoneNumber = ({ control, name = "phone", selectedCountry }) => {
               enableSearch
               specialLabel=""
               inputProps={{
+                id: "phone-input",
                 name,
                 autoComplete: "tel",
               }}
               containerClass="!w-full"
-              inputClass={`!w-full !py-2 !pl-14 !text-sm !border-gray-300 rounded-md ${
-                error ? "!border-red-500" : ""
-              }`}
-              buttonClass="!border-gray-300"
+              inputClass={`!w-full !py-2 !pl-14 !text-sm !border-gray-300 rounded-md 
+    focus:!outline-none focus:!ring-2 focus:!ring-blue-500 focus:!border-blue-500 
+    ${error ? "!border-red-500" : ""}
+  `}
+              buttonClass="!border-gray-300 !pointer-events-none"
               placeholder={t("step1.phonePlaceholder")}
               isRTL={i18n.dir() === "rtl"}
             />
+
             {error && (
               <p className="text-red-500 text-sm mt-1" id={`${name}-error`}>
                 {error.message}

@@ -161,12 +161,7 @@ const StepOne = () => {
           rules={schema.city}
         />
 
-        <PhoneNumber
-          control={control}
-          setValue={setValue}
-          selectedCountry={selectedCountry}
-          initialPhone={savedData?.phone}
-        />
+        <PhoneNumber control={control} selectedCountry={selectedCountry} />
 
         <ControlledInput
           name="email"
