@@ -4,8 +4,6 @@ const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 const API_URL = "https://api.openai.com/v1/chat/completions";
 
 export const getGPTSuggestion = async (prompt) => {
-  console.log("calling getGPTSuggestion", prompt);
-
   try {
     const response = await axios.post(
       API_URL,

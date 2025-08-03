@@ -2,6 +2,7 @@ import { useId } from "react";
 import { useTranslation } from "react-i18next";
 
 const Dropdown = ({
+  id,
   label,
   labelKey,
   placeholder = "Select",
@@ -13,11 +14,13 @@ const Dropdown = ({
   error,
   required = false,
   disabled = false,
+  suppressErrorMessage = false,
 }) => {
-  const id = useId();
   const { t } = useTranslation();
+  const generatedId = useId();
 
-  const fieldId = `${name}-${id}`;
+  const fieldId = id || `${name}-${generatedId}`;
+
   const labelText = labelKey ? t(labelKey) : label;
   const placeholderText = placeholderKey ? t(placeholderKey) : placeholder;
 
@@ -76,7 +79,7 @@ const Dropdown = ({
         </div>
       </div>
 
-      {error && (
+      {!suppressErrorMessage && error && (
         <p id={`${fieldId}-error`} className="text-red-500 text-sm mt-1">
           {error}
         </p>

@@ -1,7 +1,10 @@
 {
-  "name": "social-support-app",
+  "name": "social-support-assistance-portal",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A multi-step assistance portal with React, Tailwind, i18n, and OpenAI GPT integration.",
+  "author": "Vikram Singh Rajpurohit",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",

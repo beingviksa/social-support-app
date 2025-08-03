@@ -9,6 +9,7 @@ import { completeStep } from "@features/formProgress/formProgressSlice";
 
 import useLocationDropdowns from "@hooks/useLocationDropdowns";
 import useRestoreSavedValues from "@hooks/useRestoreSavedValues";
+import useFocusFirstError from "@hooks/useFocusFirstError";
 
 import { formatDobObjectToString, getInitialDob } from "@/utils/dateUtils";
 import { personalFormSchema } from "@validations/personalFormSchema";
@@ -31,6 +32,7 @@ const StepOne = () => {
   const savedData = useSelector((state) => state.form.personal);
 
   const [isSaving, setIsSaving] = useState(false);
+  const onError = useFocusFirstError();
 
   const { control, handleSubmit, watch, setValue, trigger } = useForm({
     defaultValues: {
@@ -82,7 +84,7 @@ const StepOne = () => {
       formId="step1Form"
       isSaving={isSaving}
       onBackClick={handleGoHome}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onError)}
       ariaLabel="Step 1 - Personal Info"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { usePromptBuilder } from "@/hooks/usePromptBuilder";
+import useFocusFirstError from "@hooks/useFocusFirstError";
 import { getGPTSuggestion } from "@services/openai";
 
 import { saveSituation } from "@features/form/formSlice";
@@ -38,6 +39,7 @@ const StepThree = () => {
   const [suggestion, setSuggestion] = useState("");
   const [error, setError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const onError = useFocusFirstError();
 
   const handleHelpMeWrite = async (field) => {
     setLoadingField(field);
@@ -75,7 +77,7 @@ const StepThree = () => {
       formId="step3Form"
       isSaving={isSaving}
       onBackClick={() => navigate("/form/step-2")}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onError)}
       ariaLabel="Step 3 - Situation Info"
       nextLabelKey="buttons.submit"
     >

@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-
 import Dropdown from "@common/Dropdown";
 
 const DateOfBirth = ({ value = {}, onChange, error }) => {
@@ -34,16 +33,23 @@ const DateOfBirth = ({ value = {}, onChange, error }) => {
 
   return (
     <div className="w-full">
-      <label className="block font-medium mb-1 text-sm text-gray-700">
+      <label
+        className="block font-medium mb-1 text-sm text-gray-700"
+        htmlFor="dob-day"
+      >
         {t("step1.dob", "Date of Birth")}
       </label>
+
       <div className="flex gap-2 flex-wrap sm:flex-nowrap">
         <Dropdown
+          id="dob-day"
           name="dob-day"
           value={day}
           onChange={(val) => handleChange("day", val)}
           placeholderKey="step1.dobDay"
           options={days.map((d) => ({ value: d, label: d }))}
+          error={!day && error}
+          suppressErrorMessage
         />
         <Dropdown
           name="dob-month"
@@ -51,6 +57,8 @@ const DateOfBirth = ({ value = {}, onChange, error }) => {
           onChange={(val) => handleChange("month", val)}
           placeholderKey="step1.dobMonth"
           options={months}
+          error={!month && error}
+          suppressErrorMessage
         />
         <Dropdown
           name="dob-year"
@@ -58,8 +66,11 @@ const DateOfBirth = ({ value = {}, onChange, error }) => {
           onChange={(val) => handleChange("year", val)}
           placeholderKey="step1.dobYear"
           options={years.map((y) => ({ value: y, label: y }))}
+          error={!year && error}
+          suppressErrorMessage
         />
       </div>
+
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );

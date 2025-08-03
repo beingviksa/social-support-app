@@ -9,10 +9,15 @@ const LanguageSwitcher = () => {
     document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
   };
 
+  const isArabic = i18n.language === "ar";
+
   return (
     <button
       onClick={toggleLanguage}
-      className="absolute top-4 right-4 text-sm px-3 py-1 border border-gray-300 rounded hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-300"
+      className={`absolute top-4 
+  ${isArabic ? "left-4 lg:right-4 lg:left-auto" : "right-4"} 
+  text-sm px-3 py-1 border border-gray-300 rounded 
+  hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-300`}
       aria-label={
         i18n.language === "en" ? "Switch to Arabic" : "Switch to English"
       }

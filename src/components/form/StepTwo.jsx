@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import useRestoreSavedValues from "@hooks/useRestoreSavedValues";
+import useFocusFirstError from "@hooks/useFocusFirstError";
 
 import { saveFinancial } from "@features/form/formSlice";
 import { completeStep } from "@features/formProgress/formProgressSlice";
@@ -27,6 +28,7 @@ const StepTwo = () => {
   const dispatch = useDispatch();
   const savedData = useSelector((state) => state.form.financial);
   const [isSaving, setIsSaving] = useState(false);
+  const onError = useFocusFirstError();
 
   const schema = financialFormSchema(t);
 
@@ -49,7 +51,7 @@ const StepTwo = () => {
       formId="step2Form"
       isSaving={isSaving}
       onBackClick={() => navigate("/form/step-1")}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onError)}
       ariaLabel="Step 2 - Financial Info"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

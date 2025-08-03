@@ -32,19 +32,20 @@ const PhoneNumber = ({ control, name = "phone", selectedCountry }) => {
               country={selectedCountry?.toLowerCase() || "ae"}
               value={value || phoneValue || ""}
               onChange={(val) => onChange(val)}
-              enableSearch
+              disableDropdown={true}
+              enableSearch={false}
               specialLabel=""
               inputProps={{
                 id: "phone-input",
                 name,
                 autoComplete: "tel",
               }}
-              containerClass="!w-full"
-              inputClass={`!w-full !py-2 !pl-14 !text-sm !border-gray-300 rounded-md 
-    focus:!outline-none focus:!ring-2 focus:!ring-blue-500 focus:!border-blue-500 
-    ${error ? "!border-red-500" : ""}
+              containerClass={`!w-full !rounded-md !border 
+    ${error ? "!border-red-500" : "!border-gray-300"} 
+    focus-within:!ring-2 focus-within:!ring-blue-500
   `}
-              buttonClass="!border-gray-300 !pointer-events-none"
+              inputClass="!w-full !py-2 !pl-14 !text-sm !border-0 focus:!outline-none"
+              buttonClass="!border-0 !bg-transparent !pointer-events-none"
               placeholder={t("step1.phonePlaceholder")}
               isRTL={i18n.dir() === "rtl"}
             />
