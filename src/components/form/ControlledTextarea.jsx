@@ -9,6 +9,7 @@ const ControlledTextarea = ({
   rows = 5,
 }) => {
   const { t } = useTranslation();
+  const errorId = `${name}-error`;
 
   return (
     <Controller
@@ -16,16 +17,23 @@ const ControlledTextarea = ({
       control={control}
       rules={rules}
       render={({ field, fieldState: { error } }) => (
-        <div>
+        <div className="w-full">
           <textarea
             id={name}
             {...field}
             rows={rows}
-            className={`input resize-none ${error ? "border-red-500" : ""}`}
+            aria-invalid={!!error}
+            aria-describedby={error ? errorId : undefined}
             placeholder={placeholderKey ? t(placeholderKey) : ""}
+            className={`input resize-none w-full rounded-md border py-2 px-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+              error ? "border-red-500" : "border-gray-300"
+            }`}
           />
+
           {error && (
-            <p className="text-red-500 text-sm mt-1">{error.message}</p>
+            <p id={errorId} className="text-red-500 text-sm mt-1">
+              {error.message}
+            </p>
           )}
         </div>
       )}

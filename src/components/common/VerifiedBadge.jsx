@@ -10,7 +10,7 @@ const VerifiedBadge = ({ className = "" }) => {
         i18n.dir() === "rtl" ? "flex-row-reverse" : ""
       } ${className}`}
       role="status"
-      aria-label={t("step1.otp.verified")}
+      aria-live="polite"
     >
       <CheckCircleIcon className="w-4 h-4" aria-hidden="true" />
       <span>{t("step1.otp.verified")}</span>

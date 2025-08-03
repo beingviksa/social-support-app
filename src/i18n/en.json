@@ -114,6 +114,7 @@
     "employment": "Employment Circumstances",
     "reason": "Reason for Applying",
     "helpMeWrite": "Help Me Write",
+    "helpMeWriteAriaLabel": "Let AI help you write this section",
     "required": "This field is required",
     "minLength": "Minimum {{count}} characters required",
     "financialPlaceholder": "Describe your current financial challenges...",
@@ -129,7 +130,8 @@
       "employment": "My name is {{name}}. I am currently {{employmentStatus}} and earn around {{income}} per month. Please write a short paragraph in the first person explaining my current employment situation, including any difficulties I'm facing such as irregular work, recent job loss, or job insecurity.",
 
       "reason": "My name is {{name}}, and I live in {{country}}. I am {{maritalStatus}} with {{dependents}} dependents, and my housing status is {{housing}}. Please write a sincere, first-person paragraph explaining why I am applying for financial assistance, based on my personal and living situation."
-    }
+    },
+    "aiSuggestion": "AI Suggestion"
   },
 
   "thankYou": {
@@ -156,6 +158,8 @@
     "backToHome": "Back to Home",
     "saveAndContinue": "Save and Continue",
     "saving": "Saving...",
-    "submit": "Submit"
+    "submit": "Submit",
+    "discard": "Discard",
+    "accept": "Accept"
   }
 }

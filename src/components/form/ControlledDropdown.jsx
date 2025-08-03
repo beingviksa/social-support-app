@@ -1,5 +1,4 @@
 import { Controller } from "react-hook-form";
-
 import Dropdown from "@common/Dropdown";
 
 const ControlledDropdown = ({ name, control, rules, ...rest }) => {
@@ -8,9 +7,20 @@ const ControlledDropdown = ({ name, control, rules, ...rest }) => {
       name={name}
       control={control}
       rules={rules}
-      render={({ field, fieldState }) => (
-        <Dropdown {...field} {...rest} error={fieldState.error?.message} />
-      )}
+      render={({ field, fieldState }) => {
+        const { onChange, value } = field;
+        const error = fieldState.error?.message;
+
+        return (
+          <Dropdown
+            name={name}
+            value={value}
+            onChange={onChange}
+            error={error}
+            {...rest}
+          />
+        );
+      }}
     />
   );
 };

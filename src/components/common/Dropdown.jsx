@@ -17,36 +17,39 @@ const Dropdown = ({
   const id = useId();
   const { t } = useTranslation();
 
+  const fieldId = `${name}-${id}`;
+  const labelText = labelKey ? t(labelKey) : label;
+  const placeholderText = placeholderKey ? t(placeholderKey) : placeholder;
+
   return (
     <div className="w-full">
-      {/* Label */}
-      {(label || labelKey) && (
+      {labelText && (
         <label
-          htmlFor={id}
+          htmlFor={fieldId}
           className="block font-medium mb-1 text-sm text-gray-700"
         >
-          {labelKey ? t(labelKey) : label}
+          {labelText}
         </label>
       )}
 
       <div className="relative">
         <select
-          id={id}
+          id={fieldId}
           name={name}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           required={required}
           disabled={disabled}
+          aria-label={labelText}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${fieldId}-error` : undefined}
           className={`appearance-none w-full rounded-md bg-white py-2 pl-4 pr-10 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 ${
             error
               ? "border border-red-500"
               : "border border-gray-300 focus:border-blue-500"
           } ${disabled ? "bg-gray-100 text-gray-400 cursor-not-allowed" : "text-gray-800"}`}
         >
-          <option value="">
-            {placeholderKey ? t(placeholderKey) : placeholder}
-          </option>
-
+          <option value="">{placeholderText}</option>
           {options.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.labelKey ? t(opt.labelKey) : opt.label}
@@ -54,13 +57,14 @@ const Dropdown = ({
           ))}
         </select>
 
-        {/* Chevron */}
         <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
           <svg
             className={`w-4 h-4 ${disabled ? "text-gray-300" : "text-gray-500"}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
+            role="presentation"
           >
             <path
               strokeLinecap="round"
@@ -72,8 +76,11 @@ const Dropdown = ({
         </div>
       </div>
 
-      {/* Error */}
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && (
+        <p id={`${fieldId}-error`} className="text-red-500 text-sm mt-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 };
