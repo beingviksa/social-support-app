@@ -67,6 +67,20 @@ npm run build
 
 ---
 
+## 🧪 Test Credentials (Mock Data)
+
+To proceed past **Step 1** of the form, use any of the following **valid National ID and OTP combinations**:
+
+| National ID    | OTP    |
+| -------------- | ------ |
+| 1111-2222-3333 | 123456 |
+| 4444-5555-6666 | 456789 |
+| 7777-8888-9999 | 654321 |
+
+> ⚠️ These credentials are part of mock data and used only for testing/demo purposes.
+
+---
+
 ## 🤖 GPT Integration (Step 3)
 
 In Step 3, users must describe:
